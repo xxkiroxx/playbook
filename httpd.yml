@@ -1,9 +1,26 @@
 ---
-- hosts: all
-  gather_facts: true
+- name: Install apache
+  hosts: 192.168.1.20
+  remote_user: root
   become: true
-  become_user: root
+  vars:
+       mach: prod
   tasks:
-    - apt:
-        name: httpd
-      when: ansible_os_family == "Redhat"
+   - name: install apache
+     yum:
+         name: httpd
+         state: latest
+   - name: Enable service
+     service:
+             name: httpd
+             state: started
+   - name: conf template
+     template:
+             src: demo.j2
+             dest: /var/www/html/demo.html
+     notify: restart httpd
+  handlers:
+   - name: restart httpd
+     service:
+             name: httpd
+             state: restarted
