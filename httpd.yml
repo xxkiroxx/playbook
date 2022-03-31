@@ -14,13 +14,3 @@
      service:
              name: httpd
              state: started
-   - name: conf template
-     template:
-             src: demo.j2
-             dest: /var/www/html/demo.html
-     notify: restart httpd
-  handlers:
-   - name: restart httpd
-     service:
-             name: httpd
-             state: restarted
