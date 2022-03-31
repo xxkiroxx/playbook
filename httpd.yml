@@ -6,4 +6,4 @@
   tasks:
     - apt:
         name: httpd
-      when: ansible_os_family == "Rocky"
+      when: ansible_os_family == "Redhat"
