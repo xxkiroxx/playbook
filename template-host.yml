@@ -1,0 +1,29 @@
+---
+- name: Prepare Host for template
+hosts: all
+gather_facts: no
+
+tasks:
+- name: New machine-id
+shell: "echo -n > /etc/machine-id"
+
+- name: remove udev hardware rules
+file:
+path: "/etc/udev/rules.d/70*"
+state: absent
+
+- name: remove SSH host keys
+file:
+path: "/etc/ssh/*key*"
+state: absent
+
+- name: remove uuid from ifcfg scripts
+shell: "sed -i'.bak' '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-*"
+args:
+warn: no
+
+- name: power-off vm for template
+command: "shutdown -h now"
+ignore_errors: yes
+
+...
