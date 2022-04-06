@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: no
 
-tasks:
+#tasks:
 - name: New machine-id
   shell: "echo -n > /etc/machine-id"
 
