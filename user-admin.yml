@@ -1,0 +1,26 @@
+---
+- hosts: all
+  remote_user: root
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  connection: ssh
+  tasks:
+   - name: add user "roberto"
+     user:
+       name: roberto
+       comment: hernandez sanabria
+       password: $6$gpQYSfzrkxzAJJ1o$Og2bQbaSdQ2grvIAsl/eQOkHGIAnTSl4PgHUHKd/Js05AuTpOoQIJqfyxMkeeGM6AnZSQdrpOPVsFzrxl6h68/
+       uid: 1000
+       group: users
+       groups: wheel
+       append: yes
+       state: present
+       shell: /bin/bash
+
+   - name: add SSH key
+     authorized_key:
+       user: roberto
+       state: present
+       key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDHkZDbAHxcZAxhbyvMdBVwoyEbgF1bhSQe5EUhdn9byWsGaAIGtUi5KLtP9FmIiQfN5euZn0lxB81pLjLdJ9xnGYPG/PSRi2U+nWnHX7Ug8FyA1RvpZm+Ak1hHAIdOQAW7ROPJLis1/+CyVY8cTcWvtIIydG893tk/cSravJ6uQOkRT13PewbND8Kg46dHD7ojUX45LebEjcFicEP1L9qZqdR2cVV14cYI3oRf4VbEIiKMTnRK0DnL/SmIzxw4EmTz/Y/mtM5jCQ/Sd9lbw8iDbcy/xPhLiJnXNYRqea2SE9GFOxoVbBzLbNfgRfLqcaCaA6Vmgs686OZcn60sFcwqWhv0vZNDl1JcZ0ZNpPIbqpwA/m9JlBYqmch/8gKKekRO+7mreXge3RK3fZ4DyRZDn2yVYx5bmny2LrZ/ppzFbiQR5BOO+FntT/2uH2RpIq3kFIFXZKNrwPQG2xFOQInPrhOILdvYr1vt0YEpp1rCu19AEKb/rh3Bkl8G8FRZ6vE= roberto@srvapache01
+...
